@@ -1,0 +1,248 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── SWITCH visual tokens ──────────────────────────────────────────────── */
+:root {
+  /* Background */
+  --bg:          #0e0c0a;
+  --bg-gradient: linear-gradient(160deg, #0e0c0a 0%, #130f0b 50%, #0e0c0a 100%);
+
+  /* Surfaces */
+  --surface:        rgba(255, 248, 238, 0.04);
+  --surface-strong: rgba(255, 248, 238, 0.08);
+  --surface-muted:  rgba(255, 248, 238, 0.02);
+  --surface-raised: rgba(255, 248, 238, 0.06);
+
+  /* Text */
+  --ink:    #f5efe4;
+  --ink-2:  #c8b89a;
+  --muted:  #8a7762;
+  --subtle: #5a4f42;
+
+  /* Borders */
+  --border:        rgba(255, 248, 238, 0.09);
+  --border-strong: rgba(255, 248, 238, 0.20);
+
+  /* Accent: warm amber-gold */
+  --accent:       #c8902a;
+  --accent-hover: #e0a73a;
+  --accent-muted: rgba(200, 144, 42, 0.12);
+  --accent-bg:    rgba(200, 144, 42, 0.08);
+
+  /* Focus */
+  --focus: #e0a73a;
+
+  /* Semantic */
+  --success:    #5a9c6a;
+  --success-bg: rgba(90, 156, 106, 0.10);
+  --warning:    #c8902a;
+  --warning-bg: rgba(200, 144, 42, 0.10);
+  --danger:     #c05a4a;
+  --danger-bg:  rgba(192, 90, 74, 0.10);
+
+  /* Spectral strip */
+  --spectral: linear-gradient(90deg, #c8902a 0%, #e0a73a 30%, #f5efe4 55%, #c8902a 78%, #8a7762 100%);
+
+  /* Shape */
+  --radius-card:  20px;
+  --radius-inner: 14px;
+  --radius-pill:  9999px;
+
+  /* Shadow */
+  --shadow-card:  0 2px 24px rgba(0,0,0,0.40), 0 0 0 1px rgba(255,248,238,0.07) inset;
+  --shadow-hover: 0 8px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,248,238,0.12) inset;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* Display/heading class: heavier serif weight */
+.display {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: -0.02em;
+}
+
+/* Monospace */
+.mono {
+  font-family: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+  font-size: 0.875em;
+}
+
+/* UI labels, nav, buttons: system sans */
+.sans {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  text-wrap: balance;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+p { text-wrap: pretty; max-width: 65ch; }
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,248,238,0.12); border-radius: 9999px; }
+* { scrollbar-color: rgba(255,248,238,0.12) transparent; scrollbar-width: thin; }
+
+/* ─── Focus ring ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(0.9); opacity: 0.8; }
+  70%  { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.92; }
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10%  { transform: translate(-2%, -3%); }
+  30%  { transform: translate(3%, -1%); }
+  50%  { transform: translate(-1%, 4%); }
+  70%  { transform: translate(4%, 1%); }
+  90%  { transform: translate(-3%, 2%); }
+}
+
+.animate-slide-up { animation: slide-up 0.32s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
+.animate-fade-in  { animation: fade-in 0.24s ease both; }
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Skeleton loader ────────────────────────────────────────────────────── */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,248,238,0.05);
+  border-radius: var(--radius-card);
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(255,248,238,0) 0%,
+    rgba(255,248,238,0.06) 50%,
+    rgba(255,248,238,0) 100%);
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ─── Card surfaces ──────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(255, 248, 238, 0.04);
+  border: 1px solid rgba(255, 248, 238, 0.09);
+  box-shadow: var(--shadow-card);
+}
+
+.glass-inner {
+  background: rgba(255, 248, 238, 0.03);
+  border: 1px solid rgba(255, 248, 238, 0.07);
+}
+
+/* ─── Grain texture overlay (applied to landing) ────────────────────────── */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(1) infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Urgency colours (Countdown) ───────────────────────────────────────── */
+.urgency-ok      { color: var(--success); }
+.urgency-warning { color: var(--warning); }
+.urgency-danger  { color: var(--danger); }
+
+/* ─── Divider line ───────────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--border-strong) 20%, var(--border-strong) 80%, transparent 100%);
+  border: none;
+  margin: 0;
+}
+
+/* ─── Section label ──────────────────────────────────────────────────────── */
+.section-label {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+/* ─── ConnectKit override ────────────────────────────────────────────────── */
+[data-rk], .ck-modal-inner, button[data-testid] {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* ─── Input base ─────────────────────────────────────────────────────────── */
+input, select, textarea {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--ink);
+  background: transparent;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--subtle);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(200, 144, 42, 0.28);
+  color: var(--ink);
+}

@@ -1,0 +1,58 @@
+# ---- Dependencies ----
+node_modules/
+.pnp
+.pnp.js
+
+# ---- Next.js ----
+.next/
+out/
+.vercel/
+
+# ---- Build outputs (legacy Vite) ----
+dist/
+.vite/
+
+# ---- Foundry artifacts (re-generable) ----
+contracts/out/
+contracts/cache/
+contracts/test-helpers/
+
+# ---- Environment — never commit secrets ----
+.env
+.env.*
+!.env.example
+.env.local
+.env*.local
+
+# ---- TypeScript ----
+*.tsbuildinfo
+next-env.d.ts
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- Editor ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- Logs ----
+*.log
+/tmp/
+
+# ---- SQLite database (server runtime data) ----
+data/
+
+# ---- Debug / test artefacts ----
+console.jsonl
+traces.jsonl
+
+# Foundry transaction logs
+broadcast/
+.vercel
+.env*
+
+# Keep the secret-free deployment template trackable.
+!.env.example

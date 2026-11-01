@@ -1,0 +1,12 @@
+{
+  "name": "SWITCH",
+  "short_name": "SWITCH",
+  "description": "A self-custody POT safety vault on Portaldot.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0c0a",
+  "theme_color": "#c8902a",
+  "icons": [
+    { "src": "/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

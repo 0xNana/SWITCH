@@ -3,8 +3,9 @@
 import { useAccount } from 'wagmi'
 import Link from 'next/link'
 import { ConnectKitButton } from 'connectkit'
-import { Plus } from 'lucide-react'
+import { Layers, Mail, Plus } from 'lucide-react'
 import { VaultRow } from '@/components/VaultRow'
+import { Card } from '@/components/Card'
 import { Btn } from '@/components/Btn'
 import { useOwnerVaults } from '@/hooks/useVault'
 
@@ -125,6 +126,49 @@ export default function DashboardPage() {
           ))}
         </div>
       )}
+
+      <section aria-labelledby="dashboard-roadmap-title">
+        <Card className="space-y-4 p-5 sm:p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="sans text-[0.65rem] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--accent)' }}>
+                Product roadmap
+              </p>
+              <h2 id="dashboard-roadmap-title" className="display mt-1 text-lg font-bold" style={{ color: 'var(--ink)' }}>
+                In progress
+              </h2>
+            </div>
+            <span
+              className="sans rounded-full border px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.08em]"
+              style={{ color: 'var(--accent)', background: 'var(--accent-bg)', borderColor: 'rgba(200,144,42,0.24)' }}
+            >
+              WIP
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <article className="rounded-[var(--radius-inner)] border p-4" style={{ background: 'var(--surface-muted)', borderColor: 'var(--border)' }}>
+              <div className="mb-2 flex items-center gap-2">
+                <Layers aria-hidden="true" className="size-4 shrink-0" style={{ color: 'var(--accent)' }} />
+                <h3 className="sans text-sm font-semibold" style={{ color: 'var(--ink)' }}>More vaults</h3>
+              </div>
+              <p className="sans text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>
+                Multiple vaults already work from one wallet. Better tools to organize and track a growing set are in progress.
+              </p>
+            </article>
+
+            <article className="rounded-[var(--radius-inner)] border p-4" style={{ background: 'var(--surface-muted)', borderColor: 'var(--border)' }}>
+              <div className="mb-2 flex items-center gap-2">
+                <Mail aria-hidden="true" className="size-4 shrink-0" style={{ color: 'var(--accent)' }} />
+                <h3 className="sans text-sm font-semibold" style={{ color: 'var(--ink)' }}>Email reminders</h3>
+              </div>
+              <p className="sans text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>
+                <strong style={{ color: 'var(--ink-2)' }}>Email reminders still need the separate Bun backend and durable storage deployed</strong> before they’ll work in production.
+              </p>
+            </article>
+          </div>
+        </Card>
+      </section>
     </div>
   )
 }

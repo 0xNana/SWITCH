@@ -390,7 +390,7 @@ export default function LandingPage() {
                 {[
                   "This testnet build hasn't been independently audited. Use test tokens only.",
                   'Release is irreversible once submitted. Check in during the grace period if needed.',
-                  'Email reminders are separate from the contract and may not arrive. Keep your own reminder too.',
+                  'Email reminders are a work in progress. They need the separate Bun backend and durable storage deployed before they’ll work in production.',
                   "Your vault is public. Balances and addresses are visible on-chain.",
                   "Tell your people. SWITCH doesn't contact beneficiaries automatically — they need to know.",
                   "It isn't a legal will. It only covers the POT you put in the vault.",

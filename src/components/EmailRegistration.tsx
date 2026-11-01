@@ -21,6 +21,17 @@ export function EmailRegistration({ vaultId, address, role, label = 'Get notifie
   const { hasEmail, isLoading, isMutating, register, unregister } = useEmailForAddress(vaultId, address, role)
 
   const isValidEmail = inputEmail.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputEmail)
+  const emailReminderWip = (
+    <p role="note" className="sans text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>
+      <span
+        className="mr-1.5 rounded-full border px-1.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide"
+        style={{ color: 'var(--accent)', borderColor: 'rgba(200,144,42,0.24)', background: 'var(--accent-bg)' }}
+      >
+        WIP
+      </span>
+      <strong style={{ color: 'var(--ink-2)' }}>Email reminders still need the separate Bun backend and durable storage deployed</strong> before they’ll work in production.
+    </p>
+  )
 
   async function handleRegister() {
     if (!isValidEmail) return
@@ -95,64 +106,70 @@ export function EmailRegistration({ vaultId, address, role, label = 'Get notifie
   // Editing
   if (editing) {
     return (
-      <div className="flex items-center gap-2">
-        <div
-          className="flex flex-1 items-center gap-2 rounded-xl border px-3 py-1.5"
-          style={{
-            background: 'rgba(255,248,238,0.04)',
-            borderColor: isValidEmail ? 'rgba(90,156,106,0.45)' : 'rgba(255,248,238,0.12)',
-          }}
-        >
-          <Mail className="size-3.5 shrink-0" style={{ color: 'var(--subtle)' }} />
-          <input
-            type="email"
-            value={inputEmail}
-            onChange={(e) => setInputEmail(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleRegister()}
-            placeholder="your@email.com"
-            className="min-w-0 flex-1 bg-transparent text-xs outline-none"
+      <div className="space-y-2">
+        {emailReminderWip}
+        <div className="flex items-center gap-2">
+          <div
+            className="flex flex-1 items-center gap-2 rounded-xl border px-3 py-1.5"
             style={{
-              color: 'var(--ink)',
-              fontFamily: '-apple-system, "Helvetica Neue", Arial, sans-serif',
+              background: 'rgba(255,248,238,0.04)',
+              borderColor: isValidEmail ? 'rgba(90,156,106,0.45)' : 'rgba(255,248,238,0.12)',
             }}
-            autoFocus
-          />
+          >
+            <Mail className="size-3.5 shrink-0" style={{ color: 'var(--subtle)' }} />
+            <input
+              type="email"
+              value={inputEmail}
+              onChange={(e) => setInputEmail(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleRegister()}
+              placeholder="your@email.com"
+              className="min-w-0 flex-1 bg-transparent text-xs outline-none"
+              style={{
+                color: 'var(--ink)',
+                fontFamily: '-apple-system, "Helvetica Neue", Arial, sans-serif',
+              }}
+              autoFocus
+            />
+          </div>
+          <Btn
+            size="xs"
+            onClick={handleRegister}
+            disabled={!isValidEmail || isSigning || isMutating}
+            loading={isSigning || isMutating}
+          >
+            {isSigning ? <Loader2 className="size-3 animate-spin" /> : <Check className="size-3" />}
+          </Btn>
+          <Btn
+            size="xs"
+            variant="ghost"
+            onClick={() => { setEditing(false); setInputEmail('') }}
+          >
+            ✕
+          </Btn>
         </div>
-        <Btn
-          size="xs"
-          onClick={handleRegister}
-          disabled={!isValidEmail || isSigning || isMutating}
-          loading={isSigning || isMutating}
-        >
-          {isSigning ? <Loader2 className="size-3 animate-spin" /> : <Check className="size-3" />}
-        </Btn>
-        <Btn
-          size="xs"
-          variant="ghost"
-          onClick={() => { setEditing(false); setInputEmail('') }}
-        >
-          ✕
-        </Btn>
       </div>
     )
   }
 
   // Default: prompt
   return (
-    <button
-      onClick={() => setEditing(true)}
-      className="flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70"
-      style={{
-        color: 'var(--subtle)',
-        fontFamily: '-apple-system, "Helvetica Neue", Arial, sans-serif',
-        background: 'none',
-        border: 'none',
-        padding: 0,
-        cursor: 'pointer',
-      }}
-    >
-      <Bell className="size-3" />
-      {label}
-    </button>
+    <div className="space-y-2">
+      {emailReminderWip}
+      <button
+        onClick={() => setEditing(true)}
+        className="flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70"
+        style={{
+          color: 'var(--subtle)',
+          fontFamily: '-apple-system, "Helvetica Neue", Arial, sans-serif',
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          cursor: 'pointer',
+        }}
+      >
+        <Bell className="size-3" />
+        {label}
+      </button>
+    </div>
   )
 }
